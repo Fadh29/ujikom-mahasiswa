@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\AppAkun;
+use App\Models\Provinsi;
+use App\Models\Kabkot;
+use App\Models\Kecamatan;
+use App\Models\Agama;
 use App\Models\AppMdWebdata;
 use App\Models\AppDataForum;
 use App\Models\AppDataLayanan;
@@ -41,6 +45,38 @@ class PageController extends Controller
         return view('pages.landing-page');
     }
 
+    public function mahasiswaBaru(): View
+    {
+        return view('pages/admin/newmahasiswa');
+    }
+
+    public function detailMahasiswa($uid): View
+    {
+        // Check if the user is an admin
+        if (!Auth::user() || !Auth::user()->is_admin) {
+            abort(404, 'Not found');
+        }
+
+        $mahasiswa = AppAkun::where('uid_akun', $uid)
+            ->with('kecamatan', 'kabkot', 'provinsi', 'agama')
+            ->first();
+
+        // Check if mahasiswa exists
+        if (!$mahasiswa) {
+            abort(404, 'Mahasiswa tidak ditemukan');
+        }
+
+        // Fetch lists for dropdowns
+        $provinsiList = Provinsi::all();
+        $kabkotList = Kabkot::where('id_provinsi', $mahasiswa->id_provinsi)->get();
+        $kecamatanList = Kecamatan::where('id_kabkot', $mahasiswa->id_kabkot)->get();
+        $agamaList = Agama::all();
+        $foto = asset('/' . $mahasiswa->file_akun);
+        $video = asset('/' . $mahasiswa->video_akun);
+
+        return view('pages/admin/detailmahasiswa', compact('mahasiswa', 'provinsiList', 'kabkotList', 'kecamatanList', 'agamaList', 'foto', 'video'));
+    }
+
 
     public function dashboardOverview1(): View
     {
@@ -58,15 +94,18 @@ class PageController extends Controller
      */
 
 
-    public function dashboardOverview2(): View
+    public function dashboardOverview2(Request $request): View
     {
-        // Mengambil seluruh data dari tabel app_akun
-        $akunList = AppAkun::all();
+        $search = $request->input('search');
 
-        // Mengirim data ke view menggunakan compact
-        return view('pages/dashboard-overview-2', compact('akunList'));
+        $akunList = AppAkun::where('status_akun', 2)
+            ->when($search, function ($query, $search) {
+                return $query->where('nama_akun', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        return view('pages/dashboard-overview-2', compact('akunList', 'search'));
     }
-
 
     /**
      * Show specified view.
@@ -74,7 +113,27 @@ class PageController extends Controller
      */
     public function dashboardOverview3(): View
     {
-        return view('pages/dashboard-overview-3');
+        $user = auth::guard('mahasiswa')->user();
+
+        $idAkun = $user->id_akun;
+        $mahasiswa = AppAkun::where('id_akun', $idAkun)
+            ->with('kecamatan', 'kabkot', 'provinsi', 'agama')
+            ->first();
+
+        // Check if mahasiswa exists
+        if (!$mahasiswa) {
+            abort(404, 'Mahasiswa tidak ditemukan');
+        }
+
+        $akunmahasiswa = AppAkun::where('id_akun', $idAkun)->first();
+        $provinsiList = Provinsi::all();
+        $kabkotList = Kabkot::where('id_provinsi', $mahasiswa->id_provinsi)->get();
+        $kecamatanList = Kecamatan::where('id_kabkot', $mahasiswa->id_kabkot)->get();
+        $agamaList = Agama::all();
+        $foto = asset('/' . $mahasiswa->file_akun);
+        $video = asset('/' . $mahasiswa->video_akun);
+        // dd($akunmahasiswa, $idAkun, $user);
+        return view('pages/dashboard-overview-3', compact('akunmahasiswa', 'provinsiList', 'kabkotList', 'kecamatanList', 'agamaList', 'foto', 'video'));
     }
 
     /**

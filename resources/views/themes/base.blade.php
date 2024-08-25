@@ -49,9 +49,11 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <body>
     <x-theme-switcher />
+    <x-alert />
 
     @yield('content')
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- BEGIN: Vendor JS Assets-->
     @vite('resources/js/vendors/dom.js')

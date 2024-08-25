@@ -12,7 +12,7 @@ class TopMenu
         $menu = [
             'dashboard' => [
                 'icon' => 'home',
-                'route_name' => 'dashboard',
+                'route_name' => 'dashboard-overview-3',
                 'title' => 'Dashboard',
             ],
         ];
@@ -22,12 +22,12 @@ class TopMenu
                 'halaman-utama' => [
                     'icon' => 'home',
                     'route_name' => 'dashboard-overview-2',
-                    'title' => 'Ini Halaman Utama ADM',
+                    'title' => 'Halaman Utama',
                 ],
                 'halaman-kedua' => [
-                    'icon' => 'home',
-                    'route_name' => 'calendar',
-                    'title' => 'bugggg',
+                    'icon' => 'pencil',
+                    'route_name' => 'mahasiswaBaruView',
+                    'title' => 'Tambah Akun Mahasiswa',
                 ],
             ];
         }
@@ -35,9 +35,9 @@ class TopMenu
         if (auth()->guard('mahasiswa')->check()) {
             $menu = [
                 'halaman-utama' => [
-                    'icon' => 'home',
-                    'route_name' => 'dashboard',
-                    'title' => 'Ini Halaman Utama MHSW',
+                    'icon' => 'scroll-text',
+                    'route_name' => 'dashboard-overview-3',
+                    'title' => 'Formulir Pendaftaran',
                 ],
             ];
         }

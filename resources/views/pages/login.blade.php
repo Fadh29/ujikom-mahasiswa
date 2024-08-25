@@ -16,20 +16,15 @@
                 <!-- BEGIN: Login Info -->
                 <div class="hidden min-h-screen flex-col xl:flex">
                     <a class="-intro-x flex items-center pt-5" href="">
-                        <img class="w-8" src="{{ Vite::asset('resources/images/lambang.png') }}"
-                            alt="Midone - Tailwind Admin Dashboard Template" />
-                        <span class="ml-3 text-3xl text-white break-words font-roboto font-bold"> Manajemen Web </span>
+
+                        <span class="ml-3 text-3xl text-white break-words font-roboto font-bold">   </span>
                     </a>
                     <div class="my-auto">
                         <img class="-intro-x -mt-16 w-1/2" src="{{ Vite::asset('resources/images/bg.png') }}"
                             alt="Midone - Tailwind Admin Dashboard Template" />
                         <div class="-intro-x mt-10 text-4xl font-medium leading-tight text-white break-words">
                             Manajemen Website <br />
-                            Pemerintah Kabupaten Bogor
-                        </div>
-                        <div
-                            class="-intro-x mt-5 text-base 2xl:text-lg text-white text-opacity-70 dark:text-slate-400 break-words">
-                            E-ticketing dan monitoring website pemerintah Kabupaten Bogor
+                            Pendaftaran Mahasiswa Baru
                         </div>
                     </div>
                 </div>

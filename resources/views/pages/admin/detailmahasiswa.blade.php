@@ -59,7 +59,7 @@
         </h2>
         <div class="intro-y box p-5">
             <div id="form1">
-                <form action="{{ route('updateMhsw', ['id' => $akunmahasiswa->id_akun]) }}" method="POST"
+                <form action="{{ route('updateMhswAdmin', ['uid' => $mahasiswa->uid_akun]) }}" method="POST"
                     id="formMahasiswabaru" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4">
@@ -68,7 +68,7 @@
                         <small style="color: red;">*</small>
                         <x-base.form-input class="w-full" id="namaMahasiswa" type="text"
                             placeholder="Masukkan Nama Mahasiswa" name="nama_akun"
-                            value="{{ $akunmahasiswa->nama_akun ?? '-' }}" required />
+                            value="{{ $mahasiswa->nama_akun ?? '-' }}" required />
                         <p id="namaMahasiswaError" class="text-red-500 text-sm hidden">Nama Mahasiswa harus diisi!</p>
                     </div>
 
@@ -77,7 +77,7 @@
                         <small style="color: red;">*</small>
                         <x-base.form-input class="w-full" id="emailMahasiswa" type="text"
                             placeholder="Masukkan Email Mahasiswa" name="email_akun"
-                            value="{{ $akunmahasiswa->email_akun ?? '-' }}" required />
+                            value="{{ $mahasiswa->email_akun ?? '-' }}" required />
                         @error('email_akun')
                             <p id="emailMahasiswaError" class="text-red-500 text-sm">{{ $message }}</p>
                         @enderror
@@ -86,7 +86,7 @@
                     <div class="mb-4">
                         <x-base.form-label for="alamatKTPMahasiswa">Alamat Sesuai KTP</x-base.form-label>
                         <x-base.form-textarea class="w-full" id="alamatKTPMahasiswa" placeholder="Alamat Sesuai KTP"
-                            name="alamatktp_akun" required>{{ $akunmahasiswa->alamatktp_akun ?? '' }}</x-base.form-textarea>
+                            name="alamatktp_akun" required>{{ $mahasiswa->alamatktp_akun ?? '' }}</x-base.form-textarea>
                         <p id="alamatKTPMahasiswaError" class="text-red-500 text-sm hidden">Alamat Sesuai KTP harus diisi!
                         </p>
                     </div>
@@ -95,7 +95,7 @@
                         <x-base.form-label for="alamatDomisili">Alamat Domisili</x-base.form-label>
                         <x-base.form-textarea class="w-full" id="alamatDomisili" placeholder="Alamat Domisili"
                             name="alamatdomisili_akun"
-                            required>{{ $akunmahasiswa->alamatdomisili_akun ?? '' }}</x-base.form-textarea>
+                            required>{{ $mahasiswa->alamatdomisili_akun ?? '' }}</x-base.form-textarea>
                         <p id="alamatDomisiliError" class="text-red-500 text-sm hidden">Alamat Lengkap/Domisili harus diisi!
                         </p>
                     </div>
@@ -107,7 +107,7 @@
                             <option value="">Pilih Provinsi</option>
                             @foreach ($provinsiList as $provinsi)
                                 <option value="{{ $provinsi->id_provinsi }}"
-                                    {{ $akunmahasiswa->id_provinsi == $provinsi->id_provinsi ? 'selected' : '' }}>
+                                    {{ $mahasiswa->id_provinsi == $provinsi->id_provinsi ? 'selected' : '' }}>
                                     {{ $provinsi->nama_provinsi }}
                                 </option>
                             @endforeach
@@ -122,7 +122,7 @@
                             <option value="">Pilih Kabkot</option>
                             @foreach ($kabkotList as $kabkot)
                                 <option value="{{ $kabkot->id_kabkot }}"
-                                    {{ $akunmahasiswa->id_kabkot == $kabkot->id_kabkot ? 'selected' : '' }}>
+                                    {{ $mahasiswa->id_kabkot == $kabkot->id_kabkot ? 'selected' : '' }}>
                                     {{ $kabkot->nama_kabkot }}
                                 </option>
                             @endforeach
@@ -137,7 +137,7 @@
                             <option value="">Pilih Kecamatan</option>
                             @foreach ($kecamatanList as $kecamatan)
                                 <option value="{{ $kecamatan->id_kecamatan }}"
-                                    {{ $akunmahasiswa->id_kecamatan == $kecamatan->id_kecamatan ? 'selected' : '' }}>
+                                    {{ $mahasiswa->id_kecamatan == $kecamatan->id_kecamatan ? 'selected' : '' }}>
                                     {{ $kecamatan->nama_kecamatan }}
                                 </option>
                             @endforeach
@@ -151,14 +151,14 @@
                             <small style="color: red;">*</small>
                             <x-base.form-input class="w-full" id="noHpMahasiswa" type="text"
                                 placeholder="Masukkan Nomor HP Aktif" name="nomorhp_akun"
-                                value="{{ $akunmahasiswa->nomorhp_akun ?? '' }}" required />
+                                value="{{ $mahasiswa->nomorhp_akun ?? '' }}" required />
                             <p id="noHpMahasiswaError" class="text-red-500 text-sm hidden">Nomor HP Aktif harus diisi!</p>
                         </div>
                         <div class="w-1/2">
                             <x-base.form-label for="noTeleponMahasiswa"><strong>No Telepon</strong></x-base.form-label>
                             <x-base.form-input class="w-full" id="noTeleponMahasiswa" type="text"
                                 placeholder="Masukkan No Telepon" name="nomortelepon_akun"
-                                value="{{ $akunmahasiswa->nomortelepon_akun ?? '' }}" />
+                                value="{{ $mahasiswa->nomortelepon_akun ?? '' }}" />
                             <p id="noTeleponMahasiswaError" class="text-red-500 text-sm hidden">No Telepon harus diisi
                                 Jika
                                 Ada!
@@ -172,21 +172,21 @@
                         <div>
                             <label class="inline-flex items-center">
                                 <input type="radio" name="kewarganegaraan_akun" value="WNA Asli"
-                                    @if ($akunmahasiswa->kewarganegaraan_akun == 'WNA Asli') checked @endif required>
+                                    @if ($mahasiswa->kewarganegaraan_akun == 'WNA Asli') checked @endif required>
                                 <span class="ml-2">WNA Asli</span>
                             </label>
                         </div>
                         <div>
                             <label class="inline-flex items-center">
                                 <input type="radio" name="kewarganegaraan_akun" value="WNA Keturunan"
-                                    @if ($akunmahasiswa->kewarganegaraan_akun == 'WNA Keturunan') checked @endif required>
+                                    @if ($mahasiswa->kewarganegaraan_akun == 'WNA Keturunan') checked @endif required>
                                 <span class="ml-2">WNA Keturunan</span>
                             </label>
                         </div>
                         <div>
                             <label class="inline-flex items-center">
                                 <input type="radio" name="kewarganegaraan_akun" value="WNA" id="wnaRadio"
-                                    @if ($akunmahasiswa->kewarganegaraan_akun == 'WNA') checked @endif required>
+                                    @if ($mahasiswa->kewarganegaraan_akun == 'WNA') checked @endif required>
                                 <span class="ml-2">WNA</span>
                             </label>
                         </div>
@@ -196,7 +196,7 @@
                     <div class="mb-4" id="negaraDiv" style="display: none;">
                         <x-base.form-label for="negara"><strong>Negara</strong></x-base.form-label>
                         <x-base.form-input class="w-full" id="negara" type="text" placeholder="Masukkan Negara"
-                            name="wna_akun" value="{{ $akunmahasiswa->wna_akun ?? '' }}" />
+                            name="wna_akun" value="{{ $mahasiswa->wna_akun ?? '' }}" />
                         <p id="negaraError" class="text-red-500 text-sm hidden">Negara harus diisi jika WNA dipilih!</p>
                     </div>
 
@@ -206,7 +206,7 @@
                         <small style="color: red;">*</small>
                         <x-base.litepicker data-single-mode="true" class="w-full" id="tanggalLahir"
                             placeholder="Pilih Tanggal Lahir" name="tanggallahir_akun"
-                            value="{{ $akunmahasiswa->tanggallahir_akun ?? '' }}" required />
+                            value="{{ $mahasiswa->tanggallahir_akun ?? '' }}" required />
                         <p id="tanggalLahirError" class="text-red-500 text-sm hidden">Tanggal Lahir harus diisi!</p>
                     </div>
 
@@ -216,7 +216,7 @@
                         <small style="color: red;">*</small>
                         <x-base.form-input class="w-full" id="tempatLahirMahasiswa" type="text"
                             placeholder="Masukkan Tempat Lahir" name="tempatlahir_akun"
-                            value="{{ $akunmahasiswa->tempatlahir_akun ?? '' }}" required />
+                            value="{{ $mahasiswa->tempatlahir_akun ?? '' }}" required />
                         <p id="tempatLahirMahasiswaError" class="text-red-500 text-sm hidden">Tempat Lahir harus diisi!
                         </p>
                     </div>
@@ -228,7 +228,7 @@
                             <option value="">Pilih Provinsi</option>
                             @foreach ($provinsiList as $provinsi)
                                 <option value="{{ $provinsi->id_provinsi }}"
-                                    {{ $akunmahasiswa->id_provinsi == $provinsi->id_provinsi ? 'selected' : '' }}>
+                                    {{ $mahasiswa->id_provinsi == $provinsi->id_provinsi ? 'selected' : '' }}>
                                     {{ $provinsi->nama_provinsi }}
                                 </option>
                             @endforeach
@@ -243,7 +243,7 @@
                             <option value="">Pilih Kabkot</option>
                             @foreach ($kabkotList as $kabkot)
                                 <option value="{{ $kabkot->id_kabkot }}"
-                                    {{ $akunmahasiswa->id_kabkot == $kabkot->id_kabkot ? 'selected' : '' }}>
+                                    {{ $mahasiswa->id_kabkot == $kabkot->id_kabkot ? 'selected' : '' }}>
                                     {{ $kabkot->nama_kabkot }}
                                 </option>
                             @endforeach
@@ -256,7 +256,7 @@
                                 Negeri</strong></x-base.form-label>
                         <x-base.form-input class="w-full" id="wnaLahir" type="text"
                             placeholder="Masukkan Negara Tempat Lahir" name="luarlahir_akun"
-                            value="{{ $akunmahasiswa->luarlahir_akun ?? '' }}" />
+                            value="{{ $mahasiswa->luarlahir_akun ?? '' }}" />
                         <p id="wnaLahirError" class="text-red-500 text-sm hidden">Tempat Lahir harus diisi!</p>
                     </div>
 
@@ -266,12 +266,12 @@
                         <div>
                             <label class="inline-flex items-center">
                                 <input type="radio" id="pria" name="jk_akun" value="Pria"
-                                    {{ isset($akunmahasiswa->jk_akun) && $akunmahasiswa->jk_akun == 'Pria' ? 'checked' : '' }}>
+                                    {{ isset($mahasiswa->jk_akun) && $mahasiswa->jk_akun == 'Pria' ? 'checked' : '' }}>
                                 <span class="ml-2">Pria</span>
                             </label>
                             <label class="inline-flex items-center ml-4">
                                 <input type="radio" id="wanita" name="jk_akun" value="Wanita"
-                                    {{ isset($akunmahasiswa->jk_akun) && $akunmahasiswa->jk_akun == 'Wanita' ? 'checked' : '' }}>
+                                    {{ isset($mahasiswa->jk_akun) && $mahasiswa->jk_akun == 'Wanita' ? 'checked' : '' }}>
                                 <span class="ml-2">Wanita</span>
                             </label>
                         </div>
@@ -284,18 +284,18 @@
                         <div>
                             <label class="inline-flex items-center">
                                 <input type="radio" id="Belum Menikah" name="statusnikah_akun" value="Belum Menikah"
-                                    {{ isset($akunmahasiswa->statusnikah_akun) && $akunmahasiswa->statusnikah_akun == 'Belum Menikah' ? 'checked' : '' }}>
+                                    {{ isset($mahasiswa->statusnikah_akun) && $mahasiswa->statusnikah_akun == 'Belum Menikah' ? 'checked' : '' }}>
                                 <span class="ml-2">Belum Menikah</span>
                             </label>
                             <label class="inline-flex items-center ml-4">
                                 <input type="radio" id="Menikah" name="statusnikah_akun" value="Menikah"
-                                    {{ isset($akunmahasiswa->statusnikah_akun) && $akunmahasiswa->statusnikah_akun == 'Menikah' ? 'checked' : '' }}>
+                                    {{ isset($mahasiswa->statusnikah_akun) && $mahasiswa->statusnikah_akun == 'Menikah' ? 'checked' : '' }}>
                                 <span class="ml-2">Menikah</span>
                             </label>
                             <label class="inline-flex items-center ml-4">
                                 <input type="radio" id="Lain-lain (Janda/Duda)" name="statusnikah_akun"
                                     value="Lain-lain (Janda/Duda)"
-                                    {{ isset($akunmahasiswa->statusnikah_akun) && $akunmahasiswa->statusnikah_akun == 'Lain-lain (Janda/Duda)' ? 'checked' : '' }}>
+                                    {{ isset($mahasiswa->statusnikah_akun) && $mahasiswa->statusnikah_akun == 'Lain-lain (Janda/Duda)' ? 'checked' : '' }}>
                                 <span class="ml-2">Lain-lain (Janda/Duda)</span>
                             </label>
                         </div>
@@ -309,7 +309,7 @@
                             <option value="">Pilih Agama</option>
                             @foreach ($agamaList as $agama)
                                 <option value="{{ $agama->id_agama }}"
-                                    {{ $akunmahasiswa->id_agama == $agama->id_agama ? 'selected' : '' }}>
+                                    {{ $mahasiswa->id_agama == $agama->id_agama ? 'selected' : '' }}>
                                     {{ $agama->nama_agama }}
                                 </option>
                             @endforeach
@@ -322,7 +322,7 @@
                                 sejenisnya)</strong></x-base.form-label>
                         <input type="file" id="uploadFoto" name="file_akun" accept=".jpg, .jpeg, .png" />
                         <p id="fotoError" class="text-red-500 text-sm hidden">Foto harus diupload!</p>
-                        @if ($akunmahasiswa->file_akun)
+                        @if ($mahasiswa->file_akun)
                             <p>File Foto:</p>
                             <img src="{{ $foto }}" alt="Foto Formal" class="w-32 h-32 object-cover" />
                         @else
@@ -335,7 +335,7 @@
                                 sejenisnya)</strong></x-base.form-label>
                         <input type="file" id="uploadVideo" name="video_akun" accept=".mp4, .mov, .avi" />
                         <p id="videoError" class="text-red-500 text-sm hidden">Video harus diupload!</p>
-                        @if ($akunmahasiswa->video_akun)
+                        @if ($mahasiswa->video_akun)
                             <p>File Video:</p>
                             <video controls class="w-64">
                                 <source src="{{ $video }}" type="video/mp4">
@@ -349,7 +349,13 @@
                         <!-- Update Button -->
                         <x-base.button type="button" variant="primary" data-tw-toggle="modal"
                             data-tw-target="#simpan-data-mahasiswa" class="mt-4">
-                            Simpan
+                            Update
+                        </x-base.button>
+
+                        <!-- Delete Button -->
+                        <x-base.button type="button" variant="danger" data-tw-toggle="modal"
+                            data-tw-target="#hapus-data-mahasiswa" class="mt-4">
+                            Hapus
                         </x-base.button>
                     </div>
                 </form>
@@ -359,8 +365,7 @@
             <x-base.dialog.panel>
                 <div class="p-5 text-center">
                     <x-base.lucide class="mx-auto mt-3 h-16 w-16" icon="pencil-line" />
-                    <div class="mt-5 text-1xl">Pastikan kolom sudah terisi semua! Data yang sudah disimpan   tidak dapat di edit! <br>
-                    Hubungi admin bila ada kesalahan data!</div>
+                    <div class="mt-5 text-1xl">Pastikan kolom sudah terisi semua!</div>
                 </div>
                 <div class="px-5 pb-8 text-center flex justify-center">
                     <div class="col text-center">
@@ -388,7 +393,7 @@
                         </button>
                     </div>
                     <div class="col text-center">
-                        <form action="{{ route('deleteMhswAdmin', ['uid' => $akunmahasiswa->uid_akun]) }}" method="POST">
+                        <form action="{{ route('deleteMhswAdmin', ['uid' => $mahasiswa->uid_akun]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit"

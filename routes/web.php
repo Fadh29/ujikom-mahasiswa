@@ -25,6 +25,7 @@ Route::group(['middleware' => ['guest', 'no-cache']], function () {
 
 // Routes Authentication
 Route::post('/login', [AppAkunController::class, 'loginUser'])->name('login.user');
+Route::get('/logout', [AppAkunController::class, 'logout'])->name('logout');
 // Route::post('/login/adminopd', [AppMdInstansiController::class, 'loginAdminOpd'])->name('login.adminopd');
 // Route::post('/reset-password/adminopd', [AppMdInstansiController::class, 'tiketResetPassword'])->name('reset.tiketpassword');
 // Route::post('/login/admintiket', [AppMdInstansiController::class, 'loginAdminTiket'])->name('login.admintiket');
@@ -34,11 +35,15 @@ Route::get('/logout', [AppAkunController::class, 'logout'])->name('logout');
 Route::get('theme-switcher/{activeTheme}', [ThemeController::class, 'switch'])->name('theme-switcher');
 Route::get('layout-switcher/{activeLayout}', [LayoutController::class, 'switch'])->name('layout-switcher');
 
+Route::get('/get-kabkot/{provinsiId}', [AppAkunController::class, 'getKabkotByProvinsi']);
+Route::get('/get-kecamatan/{kabkotId}',[AppAkunController::class, 'getKecamatanByKabkot']);
+
 
 Route::controller(PageController::class)->group(function () {
     Route::get('/', 'dashboardOverview1')->name('dashboard-overview-1');
     Route::get('dashboard-overview-2-page', 'dashboardOverview2')->name('dashboard-overview-2');
-    Route::get('dashboard-overview-3-page', 'dashboardOverview3')->name('dashboard-overview-3');
+    // Route::get('dashboard-overview-3-page', 'dashboardOverview3')->name('dashboard-overview-3');
+    // Route::get('tambahhhhhh', 'mahasiswaBaru')->name('mahasiswaBaru');
     Route::get('dashboard-overview-4-page', 'dashboardOverview4')->name('dashboard-overview-4');
     Route::get('categories-page', 'categories')->name('categories');
     Route::get('add-product-page', 'addProduct')->name('add-product');
@@ -76,7 +81,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('faq-layout-1-page', 'faqLayout1')->name('faq-layout-1');
     Route::get('faq-layout-2-page', 'faqLayout2')->name('faq-layout-2');
     Route::get('faq-layout-3-page', 'faqLayout3')->name('faq-layout-3');
-    Route::get('login-page', 'login')->name('login');
+    // Route::get('login-page', 'login')->name('login');
     Route::get('register-page', 'register')->name('register');
     Route::get('error-page-page', 'errorPage')->name('error-page');
     Route::get('update-profile-page', 'updateProfile')->name('update-profile');
@@ -111,14 +116,21 @@ Route::controller(PageController::class)->group(function () {
     Route::get('image-zoom-page', 'imageZoom')->name('image-zoom');
 });
 Route::group(['prefix' => 'dashboard', 'middleware' => ['usermiddleware']], function () {
+    // Route::get('/detail-mahasiswa/{uid}', [AppAkunController::class, 'showDetailHistory'])->name('showDetailHistory');
+    Route::post('/tambah-mahasiswa', [AppAkunController::class, 'mahasiswaBarustore'])->name('mahasiswaBarustore');
+    Route::post('/update-mahasiswa/{uid}', [AppAkunController::class, 'updateMhswAdmin'])->name('updateMhswAdmin');
+    Route::post('/update-mahasiswa-simpan/{id}', [AppAkunController::class, 'updateMhsw'])->name('updateMhsw');
+    Route::delete('/hapus-mahasiswa/{uid}', [AppAkunController::class, 'deleteMhswAdmin'])->name('deleteMhswAdmin');
     Route::controller(PageController::class)->group(function () {
         Route::get('/', 'dashboard')->name('dashboard');
         Route::get('admin', 'dashboardOverview2')->name('dashboard-overview-2');
+        Route::get('detail-mahasiswa/{uid}', 'detailMahasiswa')->name('detailMahasiswa');
+        Route::get('tambah-mahasiswa', 'mahasiswaBaru')->name('mahasiswaBaruView');
         Route::get('mahasiswa', 'dashboardOverview3')->name('dashboard-overview-3');
-        Route::get('master-instansi', 'masterInstansi')->name('masterInstansi');
 
-    //Admin Mahasiswa Akun
-    Route::get('update-forumadmin', 'forum_updatebyid')->name('forum_updatebyid');
-    Route::get('update-forumadmin/{uuid}', 'forum_updatebyid')->name('forum_updatebyid');
+
+        //Admin Mahasiswa Akun
+
+        Route::get('update-forumadmin/{uuid}', 'forum_updatebyid')->name('forum_updatebyid');
     });
 });

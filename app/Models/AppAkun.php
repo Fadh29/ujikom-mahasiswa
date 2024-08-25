@@ -16,7 +16,8 @@ class AppAkun extends Authenticatable
     protected $primaryKey = 'id_akun';
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     // Kolom yang dapat diisi
@@ -43,23 +44,23 @@ class AppAkun extends Authenticatable
     // ];
 
     // Definisi relasi ke tabel lain
-    // public function kecamatan()
-    // {
-    //     return $this->belongsTo(Kecamatan::class, 'idkecamatan_akun', 'id_kecamatan');
-    // }
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'idkecamatan_akun', 'id_kecamatan');
+    }
 
-    // public function kabupaten()
-    // {
-    //     return $this->belongsTo(Kabkot::class, 'idkabupaten_akun', 'id_kabkot');
-    // }
+    public function kabkot()
+    {
+        return $this->belongsTo(Kabkot::class, 'id_kabkot');
+    }
 
-    // public function provinsi()
-    // {
-    //     return $this->belongsTo(Provinsi::class, 'idprovinsi_akun', 'id_provinsi');
-    // }
+    public function provinsi()
+    {
+        return $this->belongsTo(Provinsi::class, 'idprovinsi_akun', 'id_provinsi');
+    }
 
-    // public function agama()
-    // {
-    //     return $this->belongsTo(Agama::class, 'idagama_akun', 'id_agama');
-    // }
+    public function agama()
+    {
+        return $this->belongsTo(Agama::class, 'idagama_akun', 'id_agama');
+    }
 }

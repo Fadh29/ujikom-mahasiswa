@@ -20,11 +20,6 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('alamatktp_akun')->nullable();
             $table->string('alamatdomisili_akun')->nullable();
-            $table->unsignedBigInteger('idkecamatan_akun')->nullable();
-            $table->unsignedBigInteger('idkabupaten_akun')->nullable();
-            $table->unsignedBigInteger('idprovinsi_akun')->nullable();
-            $table->unsignedBigInteger('nomortelepon_akun')->nullable();
-            $table->unsignedBigInteger('nomorhp_akun')->nullable();
             $table->string('email_akun')->unique()->nullable();
             $table->string('kewarganegaraan_akun')->nullable();
             $table->string('tanggallahir_akun')->nullable();
@@ -36,6 +31,11 @@ return new class extends Migration
             $table->string('statusnikah_akun')->nullable();
             $table->string('file_akun')->nullable();
             $table->integer('status_akun')->nullable();
+            $table->unsignedBigInteger('idkecamatan_akun')->nullable();
+            $table->unsignedBigInteger('idkabupaten_akun')->nullable();
+            $table->unsignedBigInteger('idprovinsi_akun')->nullable();
+            $table->unsignedBigInteger('nomortelepon_akun')->nullable();
+            $table->unsignedBigInteger('nomorhp_akun')->nullable();
             $table->integer('status_daftar')->nullable();
             $table->unsignedBigInteger('idagama_akun')->nullable();
 
